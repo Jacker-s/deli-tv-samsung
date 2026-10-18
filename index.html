@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deli TV</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="$WEBAPIS/webapis/webapis.js"></script>
+  <script src="hls.min.js"></script>
+  <script src="shaka-player.compiled.js"></script>
+</head>
+<body>
+  <main id="app">
+    <!-- TELA 1: HOME SCREEN (TELEVISÃO AO VIVO - ULTRA RÁPIDA) -->
+    <section id="homeView">
+      <!-- Header Superior Full-Width -->
+      <header id="header">
+        <div class="brandBox">
+          <div class="brandMark">D</div>
+          <span class="brandTitle">Deli TV</span>
+          <span class="liveBadge">● AO VIVO</span>
+        </div>
+
+        <div class="headerSpacer"></div>
+
+        <time id="clock">--:--</time>
+
+        <div id="syncStatusLayout" class="syncStatusLayout">
+          <span class="syncDot"></span>
+          <span id="syncStatusText">Conectando…</span>
+        </div>
+
+        <button id="refreshBtn" class="refreshBtn" tabindex="0">↻ Atualizar</button>
+
+        <div class="avatarBox">D</div>
+      </header>
+
+      <!-- Título da Página / Eyebrow -->
+      <div class="pageHeader">
+        <span class="pageEyebrow">TELEVISÃO AO VIVO</span>
+        <h1 class="pageTitle">Todos os Canais</h1>
+      </div>
+
+      <!-- Carrossel Horizontal de Categorias (Chips) -->
+      <div id="categoryScroll" class="categoryScroll">
+        <div id="categoryRow" class="categoryRow"></div>
+      </div>
+
+      <!-- Contador de Canais Disponíveis -->
+      <div id="channelCount" class="channelCount">Carregando canais…</div>
+
+      <!-- Grade Virtualizada de 5 Colunas (Zero Lag / 60 FPS) -->
+      <div id="gridViewport" class="gridViewport">
+        <div id="gridTrack" class="gridTrack"></div>
+      </div>
+    </section>
+
+    <!-- TELA 2: TELA CHEIA (FULLSCREEN PLAYER) -->
+    <section id="fullscreen" hidden>
+      <object id="avplayer" type="application/avplayer"></object>
+      <video id="fullVideo" autoplay playsinline></video>
+      <iframe id="fullFrame" title="Player em tela cheia" allow="autoplay; fullscreen"></iframe>
+      <div id="playerError" hidden></div>
+      <div id="playerSpinner" class="playerSpinner" hidden><div class="spinner"></div></div>
+
+      <!-- Indicador de Buffer Flutuante no Topo à Direita (Idêntico ao Android TV) -->
+      <div id="floatingBuffer" class="floatingBufferBadge">
+        <span id="floatingBufferText">⚡ Buffer: Conectando...</span>
+      </div>
+
+      <!-- Banner EPG no Canto Inferior Esquerdo -->
+      <div id="fullInfo" class="epgOverlay">
+        <div class="epgTopRow">
+          <div class="epgLogoWrap">
+            <img id="fullLogo" alt="" class="epgLogoImg" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+            <span id="fullLogoInitials" class="epgLogoInitials" hidden>TV</span>
+          </div>
+          <div class="epgTitleCol">
+            <strong id="fullTitle" class="epgChannelTitle">Canal</strong>
+            <div class="epgPrograms">
+              <span id="fullNow" class="epgNowText">Agora · Programação</span>
+              <span id="fullNext" class="epgNextText">A seguir · Programação</span>
+            </div>
+          </div>
+          <div class="epgBadges">
+            <span id="fullBufferBadge" class="badgeBuffer">⚡ Buffer: 0.0s / 60s</span>
+            <span id="fullAudioBadge" class="badgeDualAudio" hidden>🎧 DUAL ÁUDIO (←)</span>
+            <span id="fullSourceBadge" class="badgeSource">FONTE 1 de 1</span>
+            <span class="badgeLive">● AO VIVO</span>
+          </div>
+        </div>
+        <div class="epgHints">
+          2x ↑↓: trocar canal &nbsp;·&nbsp; 2x →: trocar fonte &nbsp;·&nbsp; ←: áudio &nbsp;·&nbsp; OK: info &nbsp;·&nbsp; Voltar: sair
+        </div>
+      </div>
+    </section>
+
+    <!-- TELA 3: MODAL DE SELEÇÃO DE IDIOMA DO ÁUDIO -->
+    <section id="audioDialog" class="modal" hidden>
+      <div class="modalContent">
+        <div class="modalHeader">
+          <span class="modalBadge">🎧 ÁUDIO</span>
+          <h2>Idioma do Áudio</h2>
+          <p>Escolha uma faixa de áudio disponível para esta transmissão</p>
+        </div>
+        <div id="audioOptions" class="audioOptionsList"></div>
+        <div class="modalFooterHint">Pressione Voltar ou ← para fechar</div>
+      </div>
+    </section>
+
+    <!-- Floating Toast -->
+    <div id="toast"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

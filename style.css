@@ -1,0 +1,754 @@
+:root {
+  --bg: #060914;
+  --surface: #0e1529;
+  --surface2: #16203d;
+  --sidebar-border: #1f2b4d;
+  --card-border: #223055;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --accent: #00d2ff;
+  --accent-dark: #021423;
+  --live-red: #ff385c;
+  --nav-active-start: #0082ff;
+  --nav-active-end: #00d2ff;
+  --gold: #ffbe1a;
+  --accent-glow: 0 0 14px rgba(0, 210, 255, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  user-select: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ================= CONTAINER GERAL ================= */
+#app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+#homeView {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 38px 20px;
+  box-sizing: border-box;
+}
+
+/* ================= HEADER SUPERIOR ================= */
+#header {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.brandBox {
+  display: flex;
+  align-items: center;
+}
+
+.brandMark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
+  color: var(--accent-dark);
+  font-size: 18px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+}
+
+.brandTitle {
+  font-size: 19px;
+  font-weight: 900;
+  color: #ffffff;
+  padding-left: 10px;
+  letter-spacing: -0.3px;
+}
+
+.liveBadge {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--live-red);
+  background: rgba(255, 56, 92, 0.15);
+  border: 1px solid rgba(255, 56, 92, 0.4);
+  padding: 3px 8px;
+  border-radius: 99px;
+  margin-left: 10px;
+  letter-spacing: 0.5px;
+}
+
+.headerSpacer {
+  flex: 1;
+}
+
+#clock {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  padding-right: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.syncStatusLayout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 18px;
+}
+
+.syncDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+#syncStatusText {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.refreshBtn {
+  background: #10172b;
+  border: 1px solid #223055;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  outline: none;
+}
+
+.refreshBtn:focus, .refreshBtn.focused {
+  background: #16203d;
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: 2px solid var(--accent);
+  transform: scale(1.04);
+}
+
+.avatarBox {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d2ff 0%, #3b82f6 100%);
+  color: #021423;
+  font-size: 13px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  margin-left: 12px;
+}
+
+/* ================= TÍTULOS E CATEGORIAS ================= */
+.pageHeader {
+  margin-top: 8px;
+  margin-bottom: 2px;
+  flex: none;
+}
+
+.pageEyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  display: block;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--text);
+  margin-top: 1px;
+}
+
+.categoryScroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 8px 0 10px;
+  flex: none;
+  scrollbar-width: none;
+}
+
+.categoryScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.categoryRow {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.categoryChip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--card-border);
+  background: var(--surface);
+  color: var(--muted);
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  outline: none;
+  transition: transform 0.05s ease;
+}
+
+.categoryChip.active {
+  background: linear-gradient(135deg, var(--nav-active-start) 0%, var(--nav-active-end) 100%);
+  color: #040f1e;
+  border-color: transparent;
+  font-weight: 800;
+}
+
+.categoryChip:focus, .categoryChip.focused {
+  background: linear-gradient(135deg, var(--nav-active-start) 0%, var(--nav-active-end) 100%);
+  color: #ffffff;
+  border-color: #ffffff;
+  outline: 2px solid #ffffff;
+  transform: scale(1.05);
+}
+
+.channelCount {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+  flex: none;
+}
+
+/* ================= GRADE VIRTUALIZADA (5 COLUNAS, ZERO LAG) ================= */
+.gridViewport {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  scroll-behavior: auto !important;
+}
+
+.gridTrack {
+  position: relative;
+  width: 100%;
+  will-change: height;
+}
+
+.channelCard {
+  position: absolute;
+  width: calc(20% - 10px);
+  height: 216px;
+  background: var(--surface);
+  border: 1.5px solid var(--card-border);
+  border-radius: 16px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  contain: strict;
+  outline: none;
+  transition: transform 0.05s ease, border-color 0.05s ease;
+}
+
+.channelCard:focus, .channelCard.focused, .channelCard.selected {
+  background: var(--surface2);
+  border-color: var(--accent);
+  outline: 2.5px solid var(--accent);
+  outline-offset: -1px;
+  transform: scale(1.04);
+  box-shadow: var(--accent-glow);
+  z-index: 10;
+}
+
+.cardLogoArea {
+  width: 100%;
+  height: 100px;
+  border-radius: 12px;
+  background: #11172a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  flex: none;
+}
+
+.cardLogoArea img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;
+}
+
+.cardInitials {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.playOverlay {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-dark);
+  font-size: 16px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+}
+
+.channelCard:focus .playOverlay, .channelCard.focused .playOverlay {
+  opacity: 1;
+}
+
+.cardFavBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(6, 10, 22, 0.85);
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-size: 13px;
+  z-index: 3;
+}
+
+.cardFavBtn.active {
+  color: var(--gold);
+}
+
+.cardBadge {
+  font-size: 9px;
+  font-weight: 800;
+  color: #a5b4fc;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cardTitle {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text);
+  margin-top: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cardEpgRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.cardEpgDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--live-red);
+  flex: none;
+}
+
+.cardEpgText {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ================= FULLSCREEN PLAYER ================= */
+#fullscreen {
+  position: fixed;
+  inset: 0;
+  background: #000000;
+  z-index: 20;
+}
+
+#fullscreen #avplayer, #fullscreen video, #fullscreen iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  object-fit: contain;
+  z-index: 1 !important;
+}
+
+#playerError {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 30px;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 10;
+  font-size: 18px;
+}
+
+.playerSpinner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ================= BANNER EPG LIVE TV (DOBRO DO TAMANHO P/ TV) ================= */
+.epgOverlay {
+  position: absolute;
+  left: 44px;
+  bottom: 44px;
+  width: calc(100% - 88px);
+  max-width: 1560px;
+  background: rgba(8, 13, 29, 0.96);
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 28px;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+  z-index: 9999 !important;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+
+.epgOverlay.show {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.epgTopRow {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.epgLogoWrap {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  background: #151925;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  flex: none;
+}
+
+.epgLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
+.epgLogoInitials {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--accent);
+}
+
+.epgTitleCol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.epgChannelTitle {
+  font-size: 38px;
+  font-weight: 900;
+  color: #ffffff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+.epgPrograms {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.epgNowText {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.epgNextText {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a4b3d6;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.epgBadges {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+
+/* Indicador de Buffer Flutuante no Topo à Direita (Idêntico ao Android TV) */
+.floatingBufferBadge {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  background: rgba(5, 12, 25, 0.88);
+  border: 1px solid rgba(0, 210, 255, 0.45);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 800;
+  color: #00e5ff;
+  letter-spacing: 0.2px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.badgeBuffer {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14px;
+  font-weight: 800;
+  color: #00e5ff;
+  background: rgba(0, 210, 255, 0.12);
+  border: 1.5px solid rgba(0, 210, 255, 0.4);
+  border-radius: 99px;
+  padding: 6px 16px;
+  letter-spacing: 0.2px;
+}
+
+.floatingBufferBadge.high, .badgeBuffer.high {
+  color: #00e5ff;
+  border-color: rgba(0, 229, 255, 0.5);
+}
+
+.floatingBufferBadge.medium, .badgeBuffer.medium {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.5);
+}
+
+.floatingBufferBadge.low, .badgeBuffer.low {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.badgeDualAudio {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent);
+  background: rgba(0, 210, 255, 0.15);
+  border: 1.5px solid var(--accent);
+  border-radius: 99px;
+  padding: 6px 16px;
+}
+
+.badgeSource {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 99px;
+  padding: 6px 16px;
+}
+
+.badgeLive {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--live-red);
+  background: rgba(255, 56, 92, 0.15);
+  border: 1.5px solid var(--live-red);
+  border-radius: 99px;
+  padding: 6px 18px;
+}
+
+.epgHints {
+  font-size: 16px;
+  font-weight: 600;
+  color: #9cb1d9;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 12px;
+}
+
+/* ================= MODAL DE ÁUDIO ================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: rgba(5, 8, 22, 0.9);
+}
+
+.modalContent {
+  width: 520px;
+  max-height: 80vh;
+  background: #0e1428;
+  border: 1px solid var(--sidebar-border);
+  border-radius: 20px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalBadge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  background: rgba(0, 210, 255, 0.12);
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+.modalHeader h2 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-top: 6px;
+  color: #ffffff;
+}
+
+.modalHeader p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.audioOptionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.audioOptionsList button {
+  border: 1px solid var(--sidebar-border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+}
+
+.audioOptionsList button:focus, .audioOptionsList button.focused {
+  background: linear-gradient(135deg, var(--nav-active-start), var(--nav-active-end));
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.modalFooterHint {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  padding-top: 4px;
+}
+
+/* ================= FLOATING TOAST ================= */
+#toast {
+  position: fixed;
+  z-index: 99999;
+  left: 50%;
+  bottom: 40px;
+  transform: translate(-50%, 15px);
+  padding: 12px 26px;
+  border-radius: 99px;
+  background: #0e1529;
+  border: 1.5px solid var(--accent);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
